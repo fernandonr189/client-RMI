@@ -4,8 +4,9 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 public class ChatListenerThread extends Thread{
-
-    public ChatListenerThread() {
+    private MessageBuffer messageBuffer;
+    public ChatListenerThread(MessageBuffer messageBuffer) {
+        this.messageBuffer = messageBuffer;
     }
 
     @Override
