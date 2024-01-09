@@ -5,5 +5,4 @@ public interface ChatInterface extends Remote {
     public void sendMessage(String msg) throws RemoteException;
     public String fetchMessage() throws RemoteException;
 
-    public void registerClient() throws RemoteException;
 }
