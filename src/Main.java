@@ -6,16 +6,26 @@ import java.util.Scanner;
 
 public class Main {
 
+    private static final String host = "localhost";
+    private static final int port = 1900;
+
     /// RMI-CLIENT
     public static void main(String[] args) {
+
+        /// CREATE USERNAME
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Introduzca un nombre de usuario");
+        String username = scanner.nextLine();
+
         MessageBuffer messageBuffer = new MessageBuffer();
-        new ChatListenerThread(messageBuffer).start();
+        new ChatListenerThread(host, port, username).start();
         while(true) {
             try {
-                Scanner scanner = new Scanner(System.in);
+                scanner = new Scanner(System.in);
                 String msg = scanner.nextLine();
-                ChatInterface access = (ChatInterface) Naming.lookup("rmi://localhost:1900" + "/geeksforgeeks");
-                access.sendMessage(msg);
+                ChatInterface access = (ChatInterface) Naming.lookup("rmi://" + host + ":" + port + "/geeksforgeeks");
+                access.sendMessage("[" + username + "]: " + msg);
             } catch (RemoteException | NotBoundException | MalformedURLException e) {
                 throw new RuntimeException(e);
             }
